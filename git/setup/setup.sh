@@ -1,4 +1,6 @@
 #!/bin/sh
+# by: ashz
+# ex: script for setting up personal Git configuration
 
 usage()
 {
