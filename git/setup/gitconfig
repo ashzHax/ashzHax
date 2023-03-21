@@ -1,6 +1,8 @@
 [user]
 	name = ashzHax
 	email = ashkim2001@gmail.com
+[init]
+    defaultBranch = main
 [core]
 	editor = vim
 	#autocrlf = true # configuration for Windows (remove carriage return on PUSH, set carriage return on PULL)
