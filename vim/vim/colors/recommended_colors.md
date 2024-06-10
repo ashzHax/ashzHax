@@ -1,0 +1,21 @@
+Recommended Vim Colors (xTerm)
+ - brookstream
+ - dw_green
+ - dw_orange
+ - dw_red
+ - earendel
+ - fruity
+ - herald
+ - ir_black
+ - jellybeans
+ - kellys
+ - lucius
+ - molokai
+ - motus
+ - mustang
+ - neon
+ - neverness
+ - no_quarter
+ - oceanblack
+ - tir_black
+
