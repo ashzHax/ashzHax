@@ -1,0 +1,21 @@
+[submodule "vim/vim/bundle/vcscommand.vim"]
+	path = vim/vim/bundle/vcscommand.vim
+	url = https://github.com/vim-scripts/vcscommand.vim
+[submodule "vim/vim/bundle/file-line"]
+	path = vim/vim/bundle/file-line
+	url = https://github.com/bogado/file-line
+[submodule "vim/vim/bundle/YouCompleteMe"]
+	path = vim/vim/bundle/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe
+[submodule "vim/vim/bundle/taglist"]
+	path = vim/vim/bundle/taglist
+	url = https://github.com/yegappan/taglist
+[submodule "vim/vim/bundle/SrcExpl"]
+	path = vim/vim/bundle/SrcExpl
+	url = https://github.com/wenlongche/SrcExpl
+[submodule "vim/vim/bundle/nerdtree"]
+	path = vim/vim/bundle/nerdtree
+	url = https://github.com/preservim/nerdtree
+[submodule "vim/vim/bundle/Vundle.vim"]
+	path = vim/vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim
