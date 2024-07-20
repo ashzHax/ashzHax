@@ -6,7 +6,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "BurntSushi/ripgrep", -- need to install binary on system
-      "sharkdp/fd"          -- need to install binary on system
+      "sharkdp/fd" -- need to install binary on system
     },
     opts = function()
       local t = require("telescope.builtin")
