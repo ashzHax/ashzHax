@@ -19,6 +19,7 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"clangd",
+				"eslint",
 			},
 		},
 	},
@@ -34,6 +35,8 @@ return {
 			-- load LSP
 			c.lua_ls.setup({ capabilities = capabilities })
 			c.clangd.setup({ capabilities = capabilities })
+			c.eslint.setup({ capabilities = capabilities })
+			c.gopls.setup({})
 
 			-- keymaps
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

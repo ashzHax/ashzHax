@@ -206,10 +206,22 @@ vim.cmd("noremap <C-x>v \"*p")
 vim.cmd("augroup ft_commenting\
   autocmd!\
   autocmd FileType c          nnoremap <buffer> <leader>c I//<esc>\
+  autocmd FileType php        nnoremap <buffer> <leader>c I//<esc>\
   autocmd FileType vim        nnoremap <buffer> <leader>c I\"<esc>\
   autocmd FileType python     nnoremap <buffer> <leader>c I#<esc>\
   autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>\
   autocmd FileType lua        nnoremap <buffer> <leader>c I--<esc>\
 augroup END")
 
+-- vim.cmd("augroup ft_tab_shiftwidth\
+--   autocmd!\
+--   autocmd FileType php set shiftwidth=4\
+--   autocmd FileType php set tabstop=4\
+--   autocmd FileType php set softtabstop=4\
+-- augroup END")
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "php",
+  command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
+})
 -- }}}

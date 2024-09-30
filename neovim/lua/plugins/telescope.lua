@@ -6,7 +6,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "BurntSushi/ripgrep", -- need to install binary on system
-      "sharkdp/fd" -- need to install binary on system
+      "sharkdp/fd"          -- need to install binary on system
     },
     opts = function()
       local t = require("telescope.builtin")
@@ -27,5 +27,32 @@ return {
     opts = function()
       require("telescope").load_extension("ui-select")
     end
-  }
+  },
+  {
+    "jemag/telescope-diff.nvim",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+    },
+    opts = function()
+      require("telescope").load_extension("diff")
+
+      vim.keymap.set("n", "<leader>df",
+        function()
+          require("telescope").extensions.diff.diff_files(
+            { hidden = true }
+          )
+        end,
+        { desc = "Compare 2 files" }
+      )
+
+      vim.keymap.set("n", "<leader>dc",
+        function()
+          require("telescope").extensions.diff.diff_current(
+            { hidden = true }
+          )
+        end,
+        { desc = "Compare a file with the current file" }
+      )
+    end
+  },
 }
