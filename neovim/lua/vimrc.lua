@@ -186,7 +186,7 @@ vim.cmd("nnoremap <leader>ss <esc>:vsplit ./<cr>")
 --vim.cmd("nnoremap <C-\\>a :cs find a")
 
 -- VCSVimDiff show, and toggle Tlist
-vim.cmd("nnoremap \\cv <esc>:TlistClose<cr><esc>:VCSVimDiff<cr>")
+-- vim.cmd("nnoremap \\cv <esc>:TlistClose<cr><esc>:VCSVimDiff<cr>")
 
 -- Copy a line to system clipboard
 vim.cmd("vnoremap <C-x>c \"*y")
