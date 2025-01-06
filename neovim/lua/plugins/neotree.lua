@@ -2,6 +2,7 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   name = "neo-tree",
   branch = "v3.x",
+  priority = 999,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
