@@ -1,0 +1,41 @@
+[user]
+	name = ashzHax
+	email = ashkim2001@gmail.com
+[init]
+    defaultBranch = main
+[core]
+	editor = vim
+	#autocrlf = true # configuration for Windows (remove carriage return on PUSH, set carriage return on PULL)
+	autocrlf = input # configuration for Unix (remove carriage return on PUSH (general precaution))
+[push]
+	default = current # set push target to be the current branch
+[pull]
+	# [rebase] to set the branching point to a more recent commit in the parent branch
+	rebase = true # on pull, use rebasing as the default action instead of merging
+[diff]
+	tool = vimdiff
+[difftool "vimdiff"]
+	cmd = vimdiff $LOCAL $REMOTE
+[merge]
+	tool = vim
+[mergetool]
+	keepBackup = false
+[mergetool "vim"]
+	cmd = vim $MERGED
+[alias]
+	co = checkout
+	br = branch
+	com = commit
+	st = status
+	hist = log \
+	--graph \
+	--all \
+	--color \
+	--full-history \
+	--show-pulls \
+	--format=format:'%C(blue bold)%ad%C(reset)%C(green bold)[%h]%C(reset)%C(brightred bold)[%cl]%C(reset) %C(brightblack)[%s]' \
+	--date=format-local:'[%Y/%m/%d %H:%M:%S]'
+	history = hist
+	gcfg = config --global -e
+	# pop = reset HEAD
+	# undo = checkout -- 

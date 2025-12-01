@@ -1,0 +1,518 @@
+" ==============================================================================
+"
+"   ashz's personal .vimrc configuration
+"   # https://github.com/ashzHax/ashzHax
+"
+" ==============================================================================
+"
+"   Basic Value Configuration
+"
+" ==============================================================================
+" {{{
+" In a key map, whatever action is mapped to a key <leader>,
+" that tag will replaced by this value
+let mapleader = "\""
+
+" In a key map, whatever action is mapped to a key <localleader>,
+" that tag will replaced by this value
+let maplocalleader = "\""
+
+" Show line number on the side
+set number
+
+" Default width of the number column
+set numberwidth=3
+
+" Maximum length of text before breaking line
+" Disabled because I don't want auto line breaking
+set textwidth=0
+
+" Length of text from the right border before auto line breaking
+" Disabled because I don't want auto line breaking
+set wrapmargin=0
+
+" Wrap text longer than the window line
+set wrap
+
+" Round indent to multiple of 'shiftwidth'
+set shiftround
+
+" Number of spaces to use for each step of (auto)indent
+" Smaller is better because more text can be seen within max buffer length
+set shiftwidth=2
+
+" Number of spaces a tab counts for when opening a file
+set tabstop=2
+
+" Number of spaces that a tab counts for when performing editing operation
+set softtabstop=2
+
+" In insert mode, use the appropriate number of spaces for tabs
+set expandtab
+
+" When searching using a pattern, the case of normal letters are ignored
+set ignorecase
+
+" Highlight all matching pattern
+set hlsearch
+
+" Highlight matching pattern while typing the pattern
+set incsearch
+
+" Do smart auto-indenting when starting a new line based on a few conditions
+set smartindent
+
+" A tab in the front of a line inserts blanks according to 'shiftwidth' value
+set smarttab
+
+" The starting fold level when a new buffer is opened
+" 0 will close all folds
+set foldlevelstart=0
+
+" The folding 'mode' of the current window
+set foldmethod=marker
+
+" The start and end fold markers, separated by a comma
+" Won't modify default value, consider making a plugin later regarding this
+set foldmarker={{{,}}}
+
+" The minimal amount of lines required before auto-folding
+set foldminlines=3
+
+" When to show statusline
+" Personally like to have it always shown
+set laststatus=2
+
+" Highlight matching brackets
+set showmatch
+
+" The tag file search pathing
+set tags="./tags",
+        \"../tags",
+        \"../../tags",
+        \"../../../tags",
+        \"../../../../tags",
+        \"../../../../../tags",
+        \"../../../../../../tags",
+        \"../../../../../../../tags",
+        \"../../../../../../../../tags",
+        \"../../../../../../../../../tags",
+        \"../../../../../../../../../../tags",
+        \"../../../../../../../../../../../tags"
+
+" Show a custom array of the following on tabs
+" TODO: mess around with this value at large scale
+set listchars=tab:[-,eol:X
+
+" Disabled, because I want colored background instead of characters
+set nolist
+
+" Disable selected word being highlighted on start
+nohlsearch
+
+" }}}
+" ==============================================================================
+"
+"   Plugin (Vundle)
+"   https://github.com/VundleVim/Vundle.vim
+"   Help (':h vundle' or check details on wiki or FAQ)
+"     - :PluginList       - lists configured plugins
+"     - :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"     - :PluginSearch foo - searches for foo; append `!` to refresh local cache
+"     - :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" ==============================================================================
+" {{{
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin('~/.vim/bundle/')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'preservim/nerdtree'
+Plugin 'wenlongche/SrcExpl'
+Plugin 'yegappan/taglist'
+Plugin 'ycm-core/YouCompleteMe'
+Plugin 'bogado/file-line'
+Plugin 'vim-scripts/vcscommand.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" }}}
+" ==============================================================================
+"
+"   Status Line Configuration
+"
+" ==============================================================================
+" {{{
+" Clear previous line
+set statusline=
+
+" Modified, Read-only, Quickfix/Location List flag
+" Ignoring QuickFix, because that is the file name
+"set statusline+=%m%r%q
+set statusline+=%m%r
+
+" File path
+set statusline+=[%-.20F]
+
+" Switch to the right status line
+set statusline+=%=
+
+" Column number
+set statusline+=[%c]-
+
+" File line
+set statusline+=[%l/%L]-
+
+" File type
+set statusline+=%y
+
+" If file name is "__Tag_List__", then set statusline to show only that
+augroup statusline_configuration
+  autocmd!
+  autocmd FileType taglist let &l:statusline='[%-.20F]'
+augroup END
+
+" }}}
+" ==============================================================================
+"
+"   Colorscheme
+"
+" ==============================================================================
+" {{{
+" The colorscheme that this editor will use
+" Will search for 'color/{name}.vim' in paths defined inside the 'runtimepath'
+" option
+
+" Previous colorschemes
+"colorscheme one
+"colorscheme neon
+"colorscheme spacecamp_lite
+
+" Using 'kuroi' because it's dark, has good text type color differences
+" https://github.com/aonemd/kuroi.vim
+colorscheme kuroi
+
+" }}}
+" ==============================================================================
+"
+"   Abbreviations
+"
+" ==============================================================================
+" {{{
+" Spelling fix
+iabbrev waht what
+iabbrev tehn then
+iabbrev adn and
+
+" Quick insert (should always be at appropriate 'ftplugin' file)
+iabbrev c_debug printf(”[%s():%d] []”, __func__, __LINE__);
+iabbrev k_debug printk(KERN_DEBUG”[%s():%d] []”, __func__, __LINE__);
+
+" }}}
+" ==============================================================================
+"
+"   Custom Commands
+"
+" ==============================================================================
+" {{{
+" For accidental shift input when writing file
+command W w
+
+" For accidental shift input when closing file
+command Q q
+
+" }}}
+" ==============================================================================
+"
+"   Mapping
+"
+" ==============================================================================
+" {{{
+" Open(Edit) the '.vimrc' file on a split
+nnoremap <leader>ev :silent! vsplit $MYVIMRC<cr>
+
+" Source the '.vimrc' file
+nnoremap <leader>sv :silent! source $MYVIMRC<cr>
+
+" Select current word and warp it in quotes
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+
+" Select current word and warp it in double quotes
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+
+" Open previous file
+noremap <C-s> <esc>:execute "vi " . bufname("#")<cr>
+
+" Go to the previous tab
+noremap <C-h> <esc>:tabprev<cr>
+
+" Go to the next tab
+noremap <C-l> <esc>:tabnext<cr>
+
+" Open a new, empty tab
+noremap <C-n> <esc>:tabnew<cr>
+
+" Open a split, with the current directory as target
+nnoremap <leader>ss <esc>:vsplit ./<cr>
+
+" Query c-scope mappings (Reference :help cs)
+" Find this C symbol
+nnoremap <C-\>s :cs find s
+" Find this definition
+nnoremap <C-\>g :cs find g
+" Find functions called by this function
+nnoremap <C-\>d :cs find d
+" Find functions calling this function
+nnoremap <C-\>c :cs find c
+" Find this text string
+nnoremap <C-\>t :cs find t
+" Find this egrep pattern
+nnoremap <C-\>e :cs find e
+" Find this file
+nnoremap <C-\>f :cs find f
+" Find files #including this file
+nnoremap <C-\>i :cs find i
+" Find places where this symbol is assigned a value
+nnoremap <C-\>a :cs find a
+
+" Toggle NERDTree window and Tlist
+nnoremap <leader>n <esc>:NERDTreeToggle<cr><esc>:TlistToggle<cr>
+
+" VCSVimDiff show, and toggle Tlist
+nnoremap \cv <esc>:TlistClose<cr><esc>:VCSVimDiff<cr>
+
+" }}}
+" ==============================================================================
+"
+"   Auto Commands
+"
+" ==============================================================================
+" {{{
+" Commenting based on file type
+" Consider spliting these to file type packages
+augroup ft_commenting
+  autocmd!
+  autocmd FileType c          nnoremap <buffer> <leader>c I//<esc>
+  autocmd FileType vim        nnoremap <buffer> <leader>c I"<esc>
+  autocmd FileType python     nnoremap <buffer> <leader>c I#<esc>
+  autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
+augroup END
+
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (preservim/nerdtree)
+"   https://github.com/preservim/nerdtree
+"
+" ==============================================================================
+" {{{
+" Exit Vim if NERDTree is the only window remaining in the last tab
+autocmd BufEnter * if tabpagenr('$') == 1 &&
+  \ winnr('$') == 1 &&
+  \ exists('b:NERDTree') &&
+  \ b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in the tab
+autocmd BufEnter * if winnr('$') == 1 &&
+  \ exists('b:NERDTree') &&
+  \ b:NERDTree.isTabTree() | quit | endif
+
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (wenlongche/SrcExpl)
+"   https://github.com/wenlongche/SrcExpl
+"
+" ==============================================================================
+" {{{
+" The switch of the Source Explorer
+nmap <F8> :SrcExplToggle<CR>
+
+" Set the height of Source Explorer window
+let g:SrcExpl_winHeight = 8
+
+" Set 100 ms for refreshing the Source Explorer
+let g:SrcExpl_refreshTime = 100
+
+" Set "Enter" key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+
+" Set "Space" key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+
+" In order to avoid conflicts, the Source Explorer should know what plugins except
+" itself are using buffers. And you need add their buffer names into below list
+" according to the command ":buffers!"
+let g:SrcExpl_pluginList = [
+        \ "__Tag_List__",
+        \ "_NERD_tree_",
+        \ "Source_Explorer"
+    \ ]
+
+" The color schemes used by Source Explorer. There are five color schemes
+" supported for now - Red, Cyan, Green, Yellow and Magenta. Source Explorer
+" will pick up one of them randomly when initialization.
+let g:SrcExpl_colorSchemeList = [
+        \ "Red",
+        \ "Cyan",
+        \ "Green",
+        \ "Yellow",
+        \ "Magenta"
+    \ ]
+
+" Enable/Disable the local definition searching, and note that this is not
+" guaranteed to work, the Source Explorer doesn't check the syntax for now.
+" It only searches for a match with the keyword according to command 'gd'
+let g:SrcExpl_searchLocalDef = 1
+
+" Workaround for Vim bug @https://goo.gl/TLPK4K as any plugins using autocmd for
+" BufReadPre might have conflicts with Source Explorer. e.g. YCM, Syntastic etc.
+let g:SrcExpl_nestedAutoCmd = 1
+
+" Do not let the Source Explorer update the tags file when opening
+let g:SrcExpl_isUpdateTags = 0
+
+" Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+" create/update the tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+
+" Set "<F12>" key for updating the tags file artificially
+let g:SrcExpl_updateTagsKey = "<F12>"
+
+" Set "<F3>" key for displaying the previous definition in the jump list
+let g:SrcExpl_prevDefKey = "<F3>"
+
+" Set "<F4>" key for displaying the next definition in the jump list
+let g:SrcExpl_nextDefKey = "<F4>"
+
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (yegappan/taglist)
+"   https://github.com/yegappan/taglist
+"   :help taglist.txt
+"
+" ==============================================================================
+" {{{
+" Don't highlight the selected tag, imformation doesn't help
+let Tlist_Auto_Highlight_Tag = 0
+
+" Automatically open the taglist when vim start
+let Tlist_Auto_Open = 1
+
+" Update taglist to match newly edited files
+let Tlist_Auto_Update = 1
+
+" Don't close the taglist when a item is selected
+let Tlist_Close_On_Select = 0
+
+" Compact is better to traverse through the list
+let Tlist_Compact_Format = 1
+
+" The path to the 'ctags' utility
+let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+
+" ? Show prototypes and not tags in the taglist window
+let Tlist_Display_Prototype = 0
+
+" ? Show tag scope next to the tag name
+let Tlist_Display_Tag_Scope = 1
+
+" Less pointless clutter on screen
+let Tlist_Enable_Fold_Column = 0
+
+" Close Vim if taglist is the only window open
+let Tlist_Exit_OnlyWindow = 1
+
+" Close tag folds(what is tag folds) for inactive buffers
+let Tlist_File_Fold_Auto_Close = 1
+
+" Jump to taglist window when opened
+let Tlist_GainFocus_On_ToggleOpen = 0
+
+" Automatically highlight the current selected tag
+let Tlist_Highlight_Tag_On_BufEnter = 0
+
+" Increase Vim window width to accommodate taglist window
+" (I think higher chance to break than work)
+let Tlist_Inc_Winwidth = 0
+
+" ? Maximum number of items in a tags sub-menu
+let Tlist_Max_Submenu_Items = 20
+
+" ? Maximum tag length used in a tag menu entry
+let Tlist_Max_Tag_Length = 10
+
+" Process files even when the taglist window is closed
+let Tlist_Process_File_Always = 0
+
+" Display the help menu
+let Tlist_Show_Menu = 0
+
+" Shows tags regarding the current buffer(file) only
+let Tlist_Show_One_File = 1
+
+" In which order the taglist will show it's content
+let Tlist_Sort_Type = "order"
+
+" Use horizontal taglist
+let Tlist_Use_Horiz_Window = 0
+
+" Place the taglist on the right
+let Tlist_Use_Right_Window = 1
+
+" On mouse click, jump to targeted tag
+let Tlist_Use_SingleClick = 1
+
+" Hight of the horizontal tag list
+let Tlist_WinHeight = 0
+
+" Hight of the vertical tag list
+let Tlist_WinWidth = 25
+
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (ycm-core/YouCompleteMe)
+"   https://github.com/ycm-core/YouCompleteMe
+"
+" ==============================================================================
+" {{{
+" Disable the diagnostic tool (All errors when using library defined code)
+let g:ycm_show_diagnostics_ui = 0
+
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (bogado/file-line)
+"   https://github.com/bogado/file-line
+"
+" ==============================================================================
+" {{{
+" No configuration required
+" }}}
+" ==============================================================================
+"
+"   Plugin Configuration (vim-scripts/vcscommand.vim)
+"   https://github.com/vim-scripts/vcscommand.vim
+"
+" ==============================================================================
+" {{{
+" No configuration required
+" }}}
+" ==============================================================================

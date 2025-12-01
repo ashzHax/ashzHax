@@ -1,0 +1,76 @@
+name: unit-tests
+on: [push, pull_request]
+jobs:
+  linux:
+    name: linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        vim:
+          - nightly
+          - v9.0.0000
+          - v8.2.0000
+          - v7.4.1689
+    steps:
+      - name: Install ctags
+        run: |
+          sudo apt update && sudo apt install -y ctags
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Vim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: ${{ matrix.vim }}
+      - name: Run Tests
+        run: |
+          uname -a
+          export VIMPRG=${{ steps.vim.outputs.executable }}
+          $VIMPRG --version
+          cd test
+          ./run_tests.sh
+  neovim-linux:
+    name: neovim-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install ctags
+        run: |
+          sudo apt update && sudo apt install -y ctags
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: stable
+          neovim: true
+      - name: Run Tests
+        run: |
+          uname -a
+          export VIMPRG=${{ steps.vim.outputs.executable }}
+          $VIMPRG --version
+          cd test
+          ./run_tests.sh
+  windows:
+    name: windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Vim
+        uses: rhysd/action-setup-vim@v1
+      - name: Download Ctags
+        shell: PowerShell
+        run: Invoke-WebRequest -Uri https://github.com/universal-ctags/ctags-win32/releases/download/2022-07-25%2Fp5.9.20220724.0-14-g55e668a/ctags-2022-07-25_p5.9.20220724.0-14-g55e668a-x64.zip -OutFile ctags.zip
+      - name: Extract Ctags
+        shell: PowerShell
+        run: Expand-Archive -Path ctags.zip -DestinationPath $env:USERPROFILE
+      - name: Run Tests
+        run: |
+          $env:PATH = $env:PATH + ';' + $env:USERPROFILE + ';' + $env:USERPROFILE + '\vim-stable'
+          Get-ComputerInfo -Property Windows*
+          $env:PATH
+          vim --version
+          ctags --version
+          cd test
+          .\run_tests.cmd
